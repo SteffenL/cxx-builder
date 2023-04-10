@@ -1,0 +1,5 @@
+.git/
+.gitignore/
+/example/
+/example-build/
+*.md
