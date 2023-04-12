@@ -24,6 +24,10 @@ ARG NINJA_VERSION=1.11.1
 COPY scripts/003-install-ninja.sh scripts/
 RUN scripts/003-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
 
+# Extras
+COPY scripts/100-install-extra.sh scripts/
+RUN scripts/100-install-extra.sh
+
 # Labels
 ARG BASE_IMAGE
 
