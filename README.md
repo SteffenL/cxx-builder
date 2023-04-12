@@ -5,6 +5,7 @@ See `Dockerfile` for the list of installed software and versions.
 ## Build Docker Image
 
 ```
+docker build --target local --tag cxx-builder .
 docker build --tag ghcr.io/steffenl/cxx-builder .
 ```
 
@@ -15,7 +16,7 @@ mkdir example-build
 docker run --rm --interactive \
     --mount type=bind,readonly,source="${PWD}/example",target=/source \
     --mount type=bind,source="${PWD}/example-build",target=/build \
-    ghcr.io/steffenl/cxx-builder sh << EOF
+    cxx-builder sh << EOF
 cmake -G Ninja -B /build -S /source -DCMAKE_BUILD_TYPE=Release || exit 1
 cmake --build /build || exit 1
 EOF

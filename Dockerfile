@@ -1,7 +1,10 @@
+# This file is intended to be used with  GitHub Actions but should support being used locally.
+# The "github" stage should be last (and default) stage.
+# The "local" stage is more suitable for local use.
+
 ARG BASE_IMAGE=docker.io/ubuntu:16.04
 
-FROM ${BASE_IMAGE}
-WORKDIR /builder
+FROM ${BASE_IMAGE} AS base
 
 # GCC
 ARG GCC_HASH=ef29a97a0f635e7bb7d41a575129cced1800641df00803cf29f04dc407985df0
@@ -21,18 +24,6 @@ ARG NINJA_VERSION=1.11.1
 COPY scripts/003-install-ninja.sh scripts/
 RUN scripts/003-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
 
-# Initial directory
-WORKDIR /source
-
-# User/Group
-ARG USERNAME=user
-ARG USER_ID=1000
-ARG GROUP_ID=${USER_ID}
-
-RUN groupadd --gid "${GROUP_ID}" "${USERNAME}" \
-    && useradd --uid "${USER_ID}" --gid "${GROUP_ID}" --create-home "${USERNAME}"
-USER ${USERNAME}
-
 # Labels
 ARG BASE_IMAGE
 
@@ -46,3 +37,21 @@ LABEL org.opencontainers.image.licenses=UNLICENSED
 LABEL org.opencontainers.image.source="https://github.com/SteffenL/cxx-builder"
 LABEL org.opencontainers.image.title="C++ Build Environment"
 LABEL org.opencontainers.image.vendor="Steffen André Langnes"
+
+# Use this stage when running a container locally
+FROM base AS local
+
+# Initial directory
+WORKDIR /source
+
+# User/Group
+ARG USERNAME=user
+ARG USER_ID=1000
+ARG GROUP_ID=${USER_ID}
+
+RUN groupadd --gid "${GROUP_ID}" "${USERNAME}" \
+    && useradd --uid "${USER_ID}" --gid "${GROUP_ID}" --create-home "${USERNAME}"
+USER ${USERNAME}
+
+# Use this stage with GitHub Actions
+FROM base AS github
