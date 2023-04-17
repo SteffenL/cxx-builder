@@ -7,5 +7,6 @@ apt-get install -y \
     libboost-dev \
     libgtk-3-dev \
     '^libwxgtk3.0(-gtk3)?-dev$' \
+    python3 \
     uuid-dev || exit 1
 rm -rf /var/lib/apt/lists/* || exit 1
