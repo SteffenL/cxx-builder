@@ -24,6 +24,12 @@ ARG NINJA_VERSION=1.11.1
 COPY scripts/003-install-ninja.sh scripts/
 RUN scripts/003-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
 
+# Python
+# This version must be the available in the package repository.
+ARG PYTHON_VERSION=3.8
+COPY scripts/004-install-python.sh scripts/
+RUN scripts/004-install-python.sh "${PYTHON_VERSION}"
+
 # Extras
 COPY scripts/100-install-extra.sh scripts/
 RUN scripts/100-install-extra.sh
@@ -34,6 +40,7 @@ ARG BASE_IMAGE
 LABEL langnes.cxx-builder.versions.cmake="${CMAKE_VERSION}"
 LABEL langnes.cxx-builder.versions.gcc="${GCC_VERSION}"
 LABEL langnes.cxx-builder.versions.ninja="${NINJA_VERSION}"
+LABEL langnes.cxx-builder.versions.python="${PYTHON_VERSION}"
 
 LABEL org.opencontainers.image.base.name="${BASE_IMAGE}"
 LABEL org.opencontainers.image.description="C++ build environment with GCC, CMake and Ninja pre-installed."
