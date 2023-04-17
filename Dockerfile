@@ -2,7 +2,7 @@
 # The "github" stage should be last (and default) stage.
 # The "local" stage is more suitable for local use.
 
-ARG BASE_IMAGE=docker.io/ubuntu:16.04
+ARG BASE_IMAGE=docker.io/ubuntu:18.04
 
 FROM ${BASE_IMAGE} AS base
 
