@@ -4,6 +4,8 @@ python_version=$(echo "${1}" | grep --only-matching --extended-regexp '^[0-9]+\.
 
 apt-get update || exit 1
 apt-get install -y \
+    python3 \
     "python${python_version}" || exit 1
 rm -rf /var/lib/apt/lists/* || exit 1
-update-alternatives --set python3 "/usr/bin/python${python_version}" || exit 1
+update-alternatives --install /usr/bin/python python /usr/bin/python3.8 308
+update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 308

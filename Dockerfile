@@ -6,33 +6,37 @@ ARG BASE_IMAGE=docker.io/ubuntu:18.04
 
 FROM ${BASE_IMAGE} AS base
 
-# GCC
-ARG GCC_HASH=ef29a97a0f635e7bb7d41a575129cced1800641df00803cf29f04dc407985df0
-ARG GCC_VERSION=12.2.0
-COPY scripts/001-install-gcc.sh scripts/
-RUN scripts/001-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
-
-# CMake
-ARG CMAKE_HASH=8ec0ef24375a1d0e78de2f790b4545d0718acc55fd7e2322ecb8e135696c77fe
-ARG CMAKE_VERSION=3.26.3
-COPY scripts/002-install-cmake.sh scripts/
-RUN scripts/002-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
-
-# Ninja
-ARG NINJA_HASH=b901ba96e486dce377f9a070ed4ef3f79deb45f4ffe2938f8e7ddc69cfb3df77
-ARG NINJA_VERSION=1.11.1
-COPY scripts/003-install-ninja.sh scripts/
-RUN scripts/003-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
+# Essential
+COPY scripts/000-essential.sh scripts/
+RUN scripts/000-essential.sh
 
 # Python
 # This version must be the available in the package repository.
 ARG PYTHON_VERSION=3.8
-COPY scripts/004-install-python.sh scripts/
-RUN scripts/004-install-python.sh "${PYTHON_VERSION}"
+COPY scripts/001-install-python.sh scripts/
+RUN scripts/001-install-python.sh "${PYTHON_VERSION}"
 
-# Extras
-COPY scripts/100-install-extra.sh scripts/
-RUN scripts/100-install-extra.sh
+# GCC
+ARG GCC_HASH=ef29a97a0f635e7bb7d41a575129cced1800641df00803cf29f04dc407985df0
+ARG GCC_VERSION=12.2.0
+COPY scripts/100-install-gcc.sh scripts/
+RUN scripts/100-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
+
+# CMake
+ARG CMAKE_HASH=8ec0ef24375a1d0e78de2f790b4545d0718acc55fd7e2322ecb8e135696c77fe
+ARG CMAKE_VERSION=3.26.3
+COPY scripts/101-install-cmake.sh scripts/
+RUN scripts/101-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
+
+# Ninja
+ARG NINJA_HASH=b901ba96e486dce377f9a070ed4ef3f79deb45f4ffe2938f8e7ddc69cfb3df77
+ARG NINJA_VERSION=1.11.1
+COPY scripts/102-install-ninja.sh scripts/
+RUN scripts/102-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
+
+# Extra
+COPY scripts/200-extra.sh scripts/
+RUN scripts/200-extra.sh
 
 # Labels
 ARG BASE_IMAGE
@@ -43,7 +47,7 @@ LABEL langnes.cxx-builder.versions.ninja="${NINJA_VERSION}"
 LABEL langnes.cxx-builder.versions.python="${PYTHON_VERSION}"
 
 LABEL org.opencontainers.image.base.name="${BASE_IMAGE}"
-LABEL org.opencontainers.image.description="C++ build environment with GCC, CMake and Ninja pre-installed."
+LABEL org.opencontainers.image.description="C++ build environment with pre-installed software."
 LABEL org.opencontainers.image.licenses=UNLICENSED
 LABEL org.opencontainers.image.source="https://github.com/SteffenL/cxx-builder"
 LABEL org.opencontainers.image.title="C++ Build Environment"

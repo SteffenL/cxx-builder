@@ -11,8 +11,6 @@ gcc_url="https://github.com/gcc-mirror/gcc/archive/refs/tags/releases/gcc-${gcc_
 
 apt-get update || exit 1
 apt-get install -y \
-    build-essential \
-    curl \
     file \
     flex \
     libgmp-dev \
