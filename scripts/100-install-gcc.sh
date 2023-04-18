@@ -19,7 +19,7 @@ apt-get install -y \
     libmpc-dev || exit 1
 rm -rf /var/lib/apt/lists/* || exit 1
 
-temp_dir=$(mktemp --dir)
+temp_dir=$(mktemp --dir) || exit 1
 cd "${temp_dir}" || exit 1
 
 curl -sSLo "${temp_dir}/gcc.tar.gz" "${gcc_url}" || exit 1
