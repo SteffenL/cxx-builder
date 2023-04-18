@@ -8,6 +8,7 @@
 gcc_version=${1}
 gcc_hash=${2}
 gcc_url="https://github.com/gcc-mirror/gcc/archive/refs/tags/releases/gcc-${gcc_version}.tar.gz"
+gcc_major_version=$(echo "${gcc_version}" | grep --only-matching --extended-regexp '^[0-9]+') || exit 1
 
 apt-get update || exit 1
 apt-get install -y \
@@ -18,20 +19,23 @@ apt-get install -y \
     libmpc-dev || exit 1
 rm -rf /var/lib/apt/lists/* || exit 1
 
-mkdir -p /gcc-source || exit 1
-cd /gcc-source || exit 1
-curl -sSLo gcc.tar.gz "${gcc_url}" || exit 1
-echo "${gcc_hash} *gcc.tar.gz" > gcc.tar.gz.hash || exit 1
-shasum --check gcc.tar.gz.hash
-tar --extract --verbose --gunzip --file=gcc.tar.gz || exit 1
-cd gcc-releases-gcc-* || exit 1
+temp_dir=$(mktemp --dir)
+cd "${temp_dir}" || exit 1
 
+curl -sSLo "${temp_dir}/gcc.tar.gz" "${gcc_url}" || exit 1
+echo "${gcc_hash} *gcc.tar.gz" > "${temp_dir}/gcc.tar.gz.hash" || exit 1
+shasum --check "${temp_dir}/gcc.tar.gz.hash" || exit 1
+
+mkdir -p "${temp_dir}/source" || exit 1
+tar --extract --verbose --gunzip "--directory=${temp_dir}/source" "--file=${temp_dir}/gcc.tar.gz" || exit 1
+
+cd "${temp_dir}/source/gcc-releases-gcc-${gcc_version}" || exit 1
 ./contrib/download_prerequisites || exit 1
 
-mkdir -p /gcc-build || exit 1
-cd /gcc-build || exit 1
+mkdir -p "${temp_dir}/build" || exit 1
+cd "${temp_dir}/build" || exit 1
 
-"/gcc-source/gcc-releases-gcc-${gcc_version}/configure" -v \
+"${temp_dir}/source/gcc-releases-gcc-${gcc_version}/configure" -v \
     --build=x86_64-linux-gnu \
     --host=x86_64-linux-gnu \
     --target=x86_64-linux-gnu \
@@ -41,5 +45,6 @@ cd /gcc-build || exit 1
 
 make -j "$(nproc)" || exit 1
 make install-strip || exit 1
+ln --symbolic --force /usr/local/bin/gcc /usr/local/bin/cc || exit 1
 
-rm --recursive --dir /gcc-build /gcc-source || exit 1
+rm --recursive --dir "${temp_dir}" || exit 1
