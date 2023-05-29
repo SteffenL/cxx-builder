@@ -17,8 +17,8 @@ COPY scripts/001-install-python.sh scripts/
 RUN scripts/001-install-python.sh "${PYTHON_VERSION}"
 
 # GCC
-ARG GCC_HASH=ef29a97a0f635e7bb7d41a575129cced1800641df00803cf29f04dc407985df0
-ARG GCC_VERSION=12.2.0
+ARG GCC_HASH=f5126461c2b195045471f6934ab067fbf0e10a7e695704208f4a128178cf93af
+ARG GCC_VERSION=12.3.0
 COPY scripts/100-install-gcc.sh scripts/
 RUN scripts/100-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
 
