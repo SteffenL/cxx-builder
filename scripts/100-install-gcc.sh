@@ -40,8 +40,10 @@ cd "${temp_dir}/build" || exit 1
     --host=x86_64-linux-gnu \
     --target=x86_64-linux-gnu \
     --enable-checking=release \
+    --enable-default-pie \
     --enable-languages=c,c++ \
-    --disable-multilib || exit 1
+    --disable-multilib \
+    --disable-werror || exit 1
 
 make -j "$(nproc)" || exit 1
 make install-strip || exit 1
