@@ -17,20 +17,20 @@ COPY scripts/001-install-python.sh scripts/
 RUN scripts/001-install-python.sh "${PYTHON_VERSION}"
 
 # GCC
-ARG GCC_HASH=f5126461c2b195045471f6934ab067fbf0e10a7e695704208f4a128178cf93af
-ARG GCC_VERSION=12.3.0
+ARG GCC_HASH=f96f6dd42443b9920478c9e4de49d3d5609fff36c67d5b490ded2e0101bfc053
+ARG GCC_VERSION=14.3.0
 COPY scripts/100-install-gcc.sh scripts/
 RUN scripts/100-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
 
 # CMake
-ARG CMAKE_HASH=8ec0ef24375a1d0e78de2f790b4545d0718acc55fd7e2322ecb8e135696c77fe
-ARG CMAKE_VERSION=3.26.3
+ARG CMAKE_HASH=6b1cf99c8cfe5f9c256dc9be5f20a44d07af6149d98c8ca6bb2534c440ce0681
+ARG CMAKE_VERSION=3.31.8
 COPY scripts/101-install-cmake.sh scripts/
 RUN scripts/101-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
 
 # Ninja
-ARG NINJA_HASH=b901ba96e486dce377f9a070ed4ef3f79deb45f4ffe2938f8e7ddc69cfb3df77
-ARG NINJA_VERSION=1.11.1
+ARG NINJA_HASH=0830252db77884957a1a4b87b05a1e2d9b5f658b8367f82999a941884cbe0238
+ARG NINJA_VERSION=1.13.1
 COPY scripts/102-install-ninja.sh scripts/
 RUN scripts/102-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
 
