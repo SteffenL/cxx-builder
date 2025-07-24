@@ -59,14 +59,5 @@ FROM base AS local
 # Initial directory
 WORKDIR /source
 
-# User/Group
-ARG USERNAME=user
-ARG USER_ID=1000
-ARG GROUP_ID=${USER_ID}
-
-RUN groupadd --gid "${GROUP_ID}" "${USERNAME}" \
-    && useradd --uid "${USER_ID}" --gid "${GROUP_ID}" --create-home "${USERNAME}"
-USER ${USERNAME}
-
 # Use this stage with GitHub Actions
 FROM base AS github
