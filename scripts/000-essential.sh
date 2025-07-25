@@ -11,5 +11,6 @@ apt-get install -y \
     tar \
     unzip \
     wget \
+    xz-utils \
     zip
 rm -rf /var/lib/apt/lists/*
