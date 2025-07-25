@@ -10,17 +10,17 @@ FROM ${BASE_IMAGE} AS base
 COPY scripts/000-essential.sh scripts/
 RUN scripts/000-essential.sh
 
-# Python
-# This version must be the available in the package repository.
-ARG PYTHON_VERSION=3.8
-COPY scripts/001-install-python.sh scripts/
-RUN scripts/001-install-python.sh "${PYTHON_VERSION}"
-
 # GCC
 ARG GCC_HASH=f96f6dd42443b9920478c9e4de49d3d5609fff36c67d5b490ded2e0101bfc053
 ARG GCC_VERSION=14.3.0
-COPY scripts/100-install-gcc.sh scripts/
-RUN scripts/100-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
+COPY scripts/001-install-gcc.sh scripts/
+RUN scripts/001-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
+
+# Python
+# This version must be the available in the package repository.
+ARG PYTHON_VERSION=3.8
+COPY scripts/100-install-python.sh scripts/
+RUN scripts/100-install-python.sh "${PYTHON_VERSION}"
 
 # CMake
 ARG CMAKE_HASH=6b1cf99c8cfe5f9c256dc9be5f20a44d07af6149d98c8ca6bb2534c440ce0681
