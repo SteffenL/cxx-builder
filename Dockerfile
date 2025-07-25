@@ -16,11 +16,15 @@ ARG GCC_VERSION=14.3.0
 COPY scripts/001-install-gcc.sh scripts/
 RUN scripts/001-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
 
+# tzdata
+COPY scripts/002-install-tzdata.sh scripts/
+RUN scripts/002-install-tzdata.sh
+
 # Python
-# This version must be the available in the package repository.
-ARG PYTHON_VERSION=3.8
+ARG PYTHON_HASH=c30bb24b7f1e9a19b11b55a546434f74e739bb4c271a3e3a80ff4380d49f7adb
+ARG PYTHON_VERSION=3.12.11
 COPY scripts/100-install-python.sh scripts/
-RUN scripts/100-install-python.sh "${PYTHON_VERSION}"
+RUN scripts/100-install-python.sh "${PYTHON_VERSION}" "${PYTHON_HASH}"
 
 # CMake
 ARG CMAKE_HASH=6b1cf99c8cfe5f9c256dc9be5f20a44d07af6149d98c8ca6bb2534c440ce0681
