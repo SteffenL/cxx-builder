@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
+set -e
 
-apt-get update || exit 1
-apt-get upgrade -y || exit 1
+apt-get update
+apt-get upgrade -y
 apt-get install -y \
     build-essential \
     curl \
@@ -10,6 +11,5 @@ apt-get install -y \
     tar \
     unzip \
     wget \
-    zip \
-    || exit 1
-rm -rf /var/lib/apt/lists/* || exit 1
+    zip
+rm -rf /var/lib/apt/lists/*

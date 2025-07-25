@@ -11,8 +11,7 @@ apt-get install -y \
     "python${python_version}" \
     "python${python_version}-dev" \
     "python${python_version}-venv" \
-    "python${python_major_version}-pip" \
-   
+    "python${python_major_version}-pip"
 rm -rf /var/lib/apt/lists/*
 
 update-alternatives --install /usr/bin/python python "/usr/bin/python${python_version}" "${python_version_int}"

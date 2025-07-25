@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
+set -e
 
-apt-get update || exit 1
+apt-get update
 apt-get install -y \
     gettext \
     jq \
     libgtk-3-dev \
-    uuid-dev \
-    || exit 1
-rm -rf /var/lib/apt/lists/* || exit 1
+    uuid-dev
+rm -rf /var/lib/apt/lists/*
