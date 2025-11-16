@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 - Bumped Python version to 3.14.
+- Bumped CMake to version 4.1.2.
 
 ## [0.2.0] - 2025-07-25
 

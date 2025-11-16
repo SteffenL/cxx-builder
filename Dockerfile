@@ -27,8 +27,8 @@ COPY scripts/100-install-python.sh scripts/
 RUN scripts/100-install-python.sh "${PYTHON_VERSION}" "${PYTHON_HASH}"
 
 # CMake
-ARG CMAKE_HASH=6b1cf99c8cfe5f9c256dc9be5f20a44d07af6149d98c8ca6bb2534c440ce0681
-ARG CMAKE_VERSION=3.31.8
+ARG CMAKE_HASH=0bdecd361a8bc22e91122372cf9ec83711ca786d14aadee6988001189b151b96
+ARG CMAKE_VERSION=4.1.2
 COPY scripts/101-install-cmake.sh scripts/
 RUN scripts/101-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
 
