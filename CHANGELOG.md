@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- Bumped Python version to 3.14.
+
 ## [0.2.0] - 2025-07-25
 
 ### Changed
