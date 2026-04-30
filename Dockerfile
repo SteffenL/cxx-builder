@@ -27,8 +27,8 @@ COPY scripts/100-install-python.sh scripts/
 RUN --mount=type=bind,source=resources/python/${PYTHON_VERSION},target=/res/python/${PYTHON_VERSION} scripts/100-install-python.sh "${PYTHON_VERSION}" "${PYTHON_HASH}"
 
 # CMake
-ARG CMAKE_HASH=0bdecd361a8bc22e91122372cf9ec83711ca786d14aadee6988001189b151b96
-ARG CMAKE_VERSION=4.1.2
+ARG CMAKE_HASH=ee0b34a9a55a0d6220eceed0eab44047bbdbdc40fae0a89ba41635548a673fac
+ARG CMAKE_VERSION=4.3.2
 COPY scripts/101-install-cmake.sh scripts/
 RUN --mount=type=bind,source=resources/cmake/${CMAKE_VERSION},target=/res/cmake/${CMAKE_VERSION} scripts/101-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
 
