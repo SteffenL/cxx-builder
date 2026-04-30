@@ -21,8 +21,8 @@ COPY scripts/002-install-tzdata.sh scripts/
 RUN scripts/002-install-tzdata.sh
 
 # Python
-ARG PYTHON_HASH=2299dae542d395ce3883aca00d3c910307cd68e0b2f7336098c8e7b7eee9f3e9
-ARG PYTHON_VERSION=3.14.0
+ARG PYTHON_HASH=d923c51303e38e249136fc1bdf3568d56ecb03214efdef48516176d3d7faaef8
+ARG PYTHON_VERSION=3.14.4
 COPY scripts/100-install-python.sh scripts/
 RUN --mount=type=bind,source=resources/python/${PYTHON_VERSION},target=/res/python/${PYTHON_VERSION} scripts/100-install-python.sh "${PYTHON_VERSION}" "${PYTHON_HASH}"
 
