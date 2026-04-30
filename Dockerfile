@@ -11,8 +11,8 @@ COPY scripts/000-essential.sh scripts/
 RUN scripts/000-essential.sh
 
 # GCC
-ARG GCC_HASH=f96f6dd42443b9920478c9e4de49d3d5609fff36c67d5b490ded2e0101bfc053
-ARG GCC_VERSION=14.3.0
+ARG GCC_HASH=c1ec5cb4ed8031c93fb602cd7bc5117c66b4f9ef18f7d4cd788e5eb9b9b3e7c9
+ARG GCC_VERSION=15.2.0
 COPY scripts/001-install-gcc.sh scripts/
 RUN --mount=type=bind,source=resources/gcc/${GCC_VERSION},target=/res/gcc/${GCC_VERSION} scripts/001-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
 
