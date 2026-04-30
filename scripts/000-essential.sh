@@ -7,6 +7,7 @@ apt-get install -y \
     build-essential \
     curl \
     git \
+    jq \
     pkg-config \
     tar \
     unzip \
