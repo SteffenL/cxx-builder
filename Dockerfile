@@ -33,8 +33,8 @@ COPY scripts/101-install-cmake.sh scripts/
 RUN --mount=type=bind,source=resources/cmake/${CMAKE_VERSION},target=/res/cmake/${CMAKE_VERSION} scripts/101-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
 
 # Ninja
-ARG NINJA_HASH=0830252db77884957a1a4b87b05a1e2d9b5f658b8367f82999a941884cbe0238
-ARG NINJA_VERSION=1.13.1
+ARG NINJA_HASH=5749cbc4e668273514150a80e387a957f933c6ed3f5f11e03fb30955e2bbead6
+ARG NINJA_VERSION=1.13.2
 COPY scripts/102-install-ninja.sh scripts/
 RUN --mount=type=bind,source=resources/ninja/${NINJA_VERSION},target=/res/ninja/${NINJA_VERSION} scripts/102-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
 
