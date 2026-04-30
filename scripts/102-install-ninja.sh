@@ -3,11 +3,17 @@ set -e
 
 ninja_version=${1}
 ninja_hash=${2}
-ninja_url="https://github.com/ninja-build/ninja/releases/download/v${ninja_version}/ninja-linux.zip"
+ninja_filename=ninja-linux.zip
+ninja_url="https://github.com/ninja-build/ninja/releases/download/v${ninja_version}/${ninja_filename}"
+ninja_res_dir="/res/ninja/${ninja_version}"
+
+ninja_pkg_local_path="${ninja_res_dir}/${ninja_filename}"
+if [ ! -f "${ninja_pkg_local_path}" ]; then
+    curl -sSLo "${ninja_pkg_local_path}" "${ninja_url}"
+fi
+
+echo "${ninja_hash} *${ninja_pkg_local_path}" | sha256sum -c -
 
 temp_dir=$(mktemp --dir)
-curl -sSLo "${temp_dir}/ninja.zip" "${ninja_url}"
-echo "${ninja_hash} *${temp_dir}/ninja.zip" > "${temp_dir}/ninja.zip.hash"
-shasum --check "${temp_dir}/ninja.zip.hash"
-unzip -d /usr/local/bin "${temp_dir}/ninja.zip"
+unzip -d /usr/local/bin "${ninja_pkg_local_path}"
 rm --recursive --dir "${temp_dir}"

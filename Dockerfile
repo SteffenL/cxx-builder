@@ -14,7 +14,7 @@ RUN scripts/000-essential.sh
 ARG GCC_HASH=f96f6dd42443b9920478c9e4de49d3d5609fff36c67d5b490ded2e0101bfc053
 ARG GCC_VERSION=14.3.0
 COPY scripts/001-install-gcc.sh scripts/
-RUN scripts/001-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
+RUN --mount=type=bind,source=resources/gcc/${GCC_VERSION},target=/res/gcc/${GCC_VERSION} scripts/001-install-gcc.sh "${GCC_VERSION}" "${GCC_HASH}"
 
 # tzdata
 COPY scripts/002-install-tzdata.sh scripts/
@@ -24,19 +24,19 @@ RUN scripts/002-install-tzdata.sh
 ARG PYTHON_HASH=2299dae542d395ce3883aca00d3c910307cd68e0b2f7336098c8e7b7eee9f3e9
 ARG PYTHON_VERSION=3.14.0
 COPY scripts/100-install-python.sh scripts/
-RUN scripts/100-install-python.sh "${PYTHON_VERSION}" "${PYTHON_HASH}"
+RUN --mount=type=bind,source=resources/python/${PYTHON_VERSION},target=/res/python/${PYTHON_VERSION} scripts/100-install-python.sh "${PYTHON_VERSION}" "${PYTHON_HASH}"
 
 # CMake
 ARG CMAKE_HASH=0bdecd361a8bc22e91122372cf9ec83711ca786d14aadee6988001189b151b96
 ARG CMAKE_VERSION=4.1.2
 COPY scripts/101-install-cmake.sh scripts/
-RUN scripts/101-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
+RUN --mount=type=bind,source=resources/cmake/${CMAKE_VERSION},target=/res/cmake/${CMAKE_VERSION} scripts/101-install-cmake.sh "${CMAKE_VERSION}" "${CMAKE_HASH}"
 
 # Ninja
 ARG NINJA_HASH=0830252db77884957a1a4b87b05a1e2d9b5f658b8367f82999a941884cbe0238
 ARG NINJA_VERSION=1.13.1
 COPY scripts/102-install-ninja.sh scripts/
-RUN scripts/102-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
+RUN --mount=type=bind,source=resources/ninja/${NINJA_VERSION},target=/res/ninja/${NINJA_VERSION} scripts/102-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
 
 # Extra
 COPY scripts/200-extra.sh scripts/

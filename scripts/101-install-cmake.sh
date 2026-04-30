@@ -3,12 +3,16 @@ set -e
 
 cmake_version=${1}
 cmake_hash=${2}
-cmake_url="https://github.com/Kitware/CMake/releases/download/v${cmake_version}/cmake-${cmake_version}-linux-x86_64.sh"
+cmake_filename="cmake-${cmake_version}-linux-x86_64.sh"
+cmake_url="https://github.com/Kitware/CMake/releases/download/v${cmake_version}/${cmake_filename}"
+cmake_res_dir="/res/cmake/${cmake_version}"
 
-temp_dir=$(mktemp --dir)
-curl -sSLo "${temp_dir}/cmake.sh" "${cmake_url}"
-echo "${cmake_hash} *${temp_dir}/cmake.sh" > "${temp_dir}/cmake.sh.hash"
-shasum --check "${temp_dir}/cmake.sh.hash"
-chmod +x "${temp_dir}/cmake.sh"
-"${temp_dir}/cmake.sh" --prefix=/usr/local --exclude-subdir --skip-license
-rm --recursive --dir "${temp_dir}"
+cmake_pkg_local_path="${cmake_res_dir}/${cmake_filename}"
+if [ ! -f "${cmake_pkg_local_path}" ]; then
+    curl -sSLo "${cmake_pkg_local_path}" "${cmake_url}"
+    chmod +x "${cmake_pkg_local_path}"
+fi
+
+echo "${cmake_hash} *${cmake_pkg_local_path}" | sha256sum -c -
+
+"${cmake_pkg_local_path}" --prefix=/usr/local --exclude-subdir --skip-license
