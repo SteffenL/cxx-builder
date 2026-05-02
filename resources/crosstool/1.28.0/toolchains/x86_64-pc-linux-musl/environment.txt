@@ -1,0 +1,2 @@
+toolchain-ubuntu-18.04-x86_64-pc-linux-musl.tar.xz - Built on Ubuntu 18.04.6 with GCC 8.4.0.
+toolchain-ubuntu-24.04-x86_64-pc-linux-musl.tar.xz - Built on Ubuntu 24.04.4 with GCC 15.2.0.

@@ -38,6 +38,15 @@ ARG NINJA_VERSION=1.13.2
 COPY scripts/102-install-ninja.sh scripts/
 RUN --mount=type=bind,source=resources/ninja/${NINJA_VERSION},target=/res/ninja/${NINJA_VERSION} scripts/102-install-ninja.sh "${NINJA_VERSION}" "${NINJA_HASH}"
 
+ARG CROSSTOOL_VERSION=1.28.0
+
+# GCC w/musl - keep the OS and GCC version synchronized with GCC_VERSION
+ARG TOOLCHAIN_GCC_MUSL_HASH=207787e0c31d0b0a49be04e1b162009e2b8a231d5a41d7c34b848e3aa041d6c1
+ARG TOOLCHAIN_GCC_MUSL_PREFIX=x86_64-pc-linux-musl
+ARG TOOLCHAIN_GCC_MUSL_OS=ubuntu-18.04
+COPY scripts/103-install-toolchain.sh scripts/
+RUN --mount=type=bind,source=resources/crosstool/${CROSSTOOL_VERSION}/toolchains/${TOOLCHAIN_GCC_MUSL_PREFIX},target=/res/toolchain scripts/103-install-toolchain.sh "${GCC_VERSION}" "${TOOLCHAIN_GCC_MUSL_OS}" "${TOOLCHAIN_GCC_MUSL_HASH}" "${TOOLCHAIN_GCC_MUSL_PREFIX}"
+
 # Extra
 COPY scripts/200-extra.sh scripts/
 RUN scripts/200-extra.sh
